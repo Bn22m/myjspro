@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!--
+index.html
+-->
+<html lang="en">
+    <head>
+        <title>DemoJSPro</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../public/css/main.css">
+        <link rel="stylesheet" href="../lib/jquery/jquery-ui.css">
+        <link rel="stylesheet" href="../lib/jquery/style.css">
+    </head>
+    <body ng-app="myApp">
+        <h1>AngularJS Demo using NodeJS and MySQL.</h1>
+        <ul>
+            <li><a href="#divV">List of all clients.</a></li>
+            <li><a href="#divN">Create new clients.</a></li>
+            <li><a href="#divV">Update clients' info.</a></li>
+            <li><a href="#divV">Delete client's info.</a></li>
+            <li><a href="/reports">Reports</a></li>
+            <li><a href="/reports">Charts</a></li>
+        </ul>
+        <hr>
+        <div ng-controller="myCtrl">
+            <hr>
+            <div>{{ feedback }}</div>
+            <hr>
+            <div id="divN">
+                <label id="lblCl">New client:</label>
+                <br><br>
+                Name:
+                <input type="text" id="txbname" ng-model="name">
+                <br>
+                Email:
+                <input  type="email" id="txbemail" ng-model="email">
+                <br>
+                Phone:
+                <input type="tel" id="txbtel" ng-model="telp">
+                <br>
+                Date1:
+                <input type="text" id="txbdate1" ng-model="date1">
+                <br>
+                Date2:
+                <input type="text" id="txbdate2" ng-model="date2">
+                <br>
+                Date3:
+                <input type="text" id="txbdate3" ng-model="date3">
+                <br>
+                <input type="button" id="btnOK" value="OK" ng-click="listSubmit()">
+                <br>
+                <input type="button" id="btnUpdate" hidden="true" value="Update" ng-click="clientsUpdate()">
+                <br>
+            </div>
+            <hr>
+            <div>
+                Sort by:
+                <select id="selSort" ng-model="sortl" ng-options="x.sort for x in sortn">
+                </select>
+                Search:
+                <input ng-model="txbSearch">
+            </div>
+            <hr>
+            {{ sortl.sort }} {{ txbSearch }}
+            <hr>
+            <div id="divV">
+                <input type="button" value="View" ng-click="listView()">
+                <hr>
+                <table>
+                    <tr>
+                        <th>###</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Date</th>
+                    </tr>
+                    <tr ng-repeat=" y in clients | filter:txbSearch | orderBy:sortl.sort">
+                        <td>{{ $index + 1 }}</td>
+                        <td>{{ y.name }}</td>
+                        <td>{{ y.email }}</td>
+                        <td>{{ y.date3 }}</td>
+                        <td>
+                            <input type="submit" value="Update" ng-click="clientUpdate(y)">  
+                        </td>
+                        <td>
+                            <input type="submit" value="Delete" ng-click="clientDelete(y)">  
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br>
+            <hr>
+            <br><br>
+        </div>
+        
+        <script src="../lib/angular/angular.js"></script>
+        <script src="../lib/jquery/jquery.js"></script>
+        <script src="../lib/jquery/jquery-ui.js"></script>
+        <script src="../js/app.js"></script>
+        <script src="../js/test.js"></script>
+    </body>
+</html>
