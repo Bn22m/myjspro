@@ -80,8 +80,50 @@ function period(xdate3, xdate2){
     var yy = ys.getFullYear();
     var mm = ys.getMonth();
     var dd = ys.getDate();
-    return (yy - rfy)+"/"+mm+"/"+dd;
+	var prd = (yy - rfy)+"/"+mm+"/"+dd;
+    var prd3 = periodb(y3, y2, prd);
+    return prd3;
 };
+
+function periodb(yy3, yy2, prd1){
+    var d3 = new Date(yy3);
+    var d2 = new Date(yy2);
+    var yb = prd1.split('/');
+    var y3 = d3.getFullYear();
+    var y2 = d2.getFullYear();
+    var dpy = y3 - y2;
+    if(dpy !== yb[0]){
+        if(yb[0] === 0){
+            dpy = 0;
+        }
+    }
+    var m3 = d3.getMonth();
+    var m2 = d2.getMonth();
+    var dd3 = d3.getDate();
+    var dd2 = d2.getDate();
+    var dpm = m3 - m2;
+    if(m3 < m2){
+        dpy--;
+        dpm = (12 - m2) + m3;
+    }
+    if(dpy < 0){
+        dpy = 0;
+    }
+    var dpd = dd3 - dd2;
+    var me1 = [31,28,31,30,31,30,31,31,30,31,30,31];
+    var me2 = [31,29,31,30,31,30,31,31,30,31,30,31];
+    if(dd3 < dd2){
+        if(y3%4 === 0){
+            dpd = (me2[m2] - dd2) + dd3;
+        }
+        else{
+            dpd = (me1[m2] - dd2) + dd3;
+        }
+    }
+    var prd2 = dpy +"/"+ dpm +"/"+ dpd;    
+    return prd2;
+};
+
 
 function clientsl(clist){
     var l = clist.length;
